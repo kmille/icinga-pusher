@@ -3,7 +3,8 @@ import requests
 import logging
 from typing import Optional
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("icinga_pusher")
+logger.setLevel(logging.INFO)
 
 ICINGA_DRY_RUN = "ICINGA_DRY_RUN"
 
@@ -18,7 +19,7 @@ class IcingaService(object):
     def push_state(self, exit_status: int, plugin_output: str, performance_data: Optional[list] = None):
 
         if ICINGA_DRY_RUN in os.environ:
-            logging.debug("Env ICINGA_DRY_RUN is set. Not pushing Icinga state")
+            logger.debug("Env ICINGA_DRY_RUN is set. Not pushing Icinga state")
             return
 
         if type(exit_status) != int:
@@ -49,9 +50,9 @@ class IcingaService(object):
                                  auth=(self.icinga.username, self.icinga.password))
             resp.raise_for_status()
         except requests.exceptions.RequestException as e:
-            logging.error(f"Could not set Icinga status of service {self.service}. {e}. Response: {e.response.text}")
+            logger.error(f"Could not set Icinga status of service {self.service}. {e}. Response: {e.response.text}")
         else:
-            logging.info(f"Sucessfully set Icinga status for service {self.service}")
+            logger.info(f"Sucessfully set Icinga status for service {self.service}")
 
 
 class Icinga(object):
