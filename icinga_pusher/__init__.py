@@ -51,7 +51,7 @@ class IcingaService(object):
             resp.raise_for_status()
         except requests.exceptions.RequestException as e:
             logger.error(f"Could not set Icinga status of service {self.service}. {e}")
-            if hasattr(e, "response"):
+            if hasattr(e, "response") and hasattr(e.response, "text"):
                 logger.error(f"Response: {e.response.text}")
         else:
             logger.info(f"Sucessfully set Icinga status for service {self.service}")
