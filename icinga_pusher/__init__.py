@@ -4,8 +4,9 @@ import logging
 from typing import Optional
 
 logger = logging.getLogger("icinga_pusher")
-logger.setFormatter(logging.Formatter("[%(asctime)s %(name)s: %(levelname)s] %(message)s"))
 logger.setLevel(logging.INFO)
+for handler in logger.handlers:
+    handler.setFormatter(logging.Formatter("[%(asctime)s %(name)s: %(levelname)s] %(message)s"))
 
 ICINGA_DRY_RUN = "ICINGA_DRY_RUN"
 
