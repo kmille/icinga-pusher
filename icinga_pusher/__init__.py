@@ -9,6 +9,8 @@ logger.setLevel(logging.INFO)
 
 ICINGA_DRY_RUN = "ICINGA_DRY_RUN"
 
+requests.packages.urllib3.disable_warnings()
+
 
 class IcingaService(object):
 
