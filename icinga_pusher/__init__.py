@@ -4,6 +4,7 @@ import logging
 from typing import Optional
 
 logger = logging.getLogger("icinga_pusher")
+logger.setFormatter(logging.Formatter("[%(asctime)s %(name)s: %(levelname)s] %(message)s"))
 logger.setLevel(logging.INFO)
 
 ICINGA_DRY_RUN = "ICINGA_DRY_RUN"
@@ -70,8 +71,6 @@ class Icinga(object):
             raise ValueError(f"Hostname must start with https {hostname=}")
         self.hostname = hostname
         self.ssl_verify = ssl_verify
-        logger.info("this is a test info message")
-        logger.debug("this is a test info message")
 
     def service(self, hostname, service):
         return IcingaService(self, hostname, service)
