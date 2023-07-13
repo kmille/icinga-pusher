@@ -51,7 +51,7 @@ class IcingaService(object):
             resp.raise_for_status()
         except requests.exceptions.RequestException as e:
             logger.error(f"Could not set Icinga status of service {self.service}. {e}")
-            if hasattr(e, "response") and hasattr(e.response, "text"):
+            if isinstance(e, requests.exceptions.HTTPError):
                 logger.error(f"Response: {e.response.text}")
         else:
             logger.info(f"Sucessfully set Icinga status for service {self.service}")
@@ -70,6 +70,8 @@ class Icinga(object):
             raise ValueError(f"Hostname must start with https {hostname=}")
         self.hostname = hostname
         self.ssl_verify = ssl_verify
+        logger.info("this is a test info message")
+        logger.debug("this is a test info message")
 
     def service(self, hostname, service):
         return IcingaService(self, hostname, service)
