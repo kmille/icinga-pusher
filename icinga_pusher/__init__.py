@@ -51,9 +51,9 @@ class IcingaService(object):
                                  auth=(self.icinga.username, self.icinga.password))
             resp.raise_for_status()
         except requests.exceptions.RequestException as e:
-            logger.error(f"Could not set Icinga status of service {self.service}. {e}")
+            logger.warning(f"Could not set Icinga status of service {self.service}. {e}")
             if isinstance(e, requests.exceptions.HTTPError):
-                logger.error(f"Response: {e.response.text}")
+                logger.warning(f"Response: {e.response.text}")
         else:
             logger.info(f"Sucessfully set Icinga status for service {self.service}")
 
