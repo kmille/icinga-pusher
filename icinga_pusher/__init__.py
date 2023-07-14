@@ -3,10 +3,7 @@ import requests
 import logging
 from typing import Optional
 
-logger = logging.getLogger("icinga_pusher")
-logger.setLevel(logging.INFO)
-for handler in logger.handlers:
-    handler.setFormatter(logging.Formatter("[%(asctime)s %(name)s: %(levelname)s] %(message)s"))
+logger = logging.getLogger(__name__)
 
 ICINGA_DRY_RUN = "ICINGA_DRY_RUN"
 
